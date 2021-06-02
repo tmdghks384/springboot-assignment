@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent( ~{this::content} )}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4 text-center mb-5">Board Read Page</h1>
+        <div class="form-group">
+            <label>BNo.</label>
+            <input type="text" class="form-control" id="assId" th:value="${dto.assId}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="title" th:value="${dto.assTitle}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Content</label>
+            <textarea class="form-control" rows="5" id="content" th:text="${dto.assCont}" readonly></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Created Date</label>
+            <input class="form-control" id="regDate" th:value="${#dates.format(dto.regDate, 'yyyy-MM-dd HH:mm')}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Modify Date</label>
+            <input class="form-control" id="modDate"
+                   th:value="${dto.modDate == null ? '-' : #dates.format(dto.modDate, 'yyyy-MM-dd HH:mm')}" readonly>
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-warning mt-5" onclick="location.href='/board/list'">Back To List</button>
+            <button type="button" class="btn btn-outline-success ml-1 mt-5" id="updateBtn">Modify</button>
+            <button type="button" class="btn btn-outline-danger ml-1 mt-5" id="deleteBtn">Remove</button>
+        </div>
+    </th:block>
+</th:block>
+<script>
+    $(function () {
+        $('#updateBtn').click(function () {
+            let assId = $('#assId').val();
+            swal("수정하시겠습니까?",{
+                buttons: {
+                    cancel: "아니오",
+                    add: "네"
+                }
+            }).then((v)=>{
+                if (v === "add"){
+                    location.href = '/board/update/' + assId;
+                }
+            })
+        });
+
+        $('#deleteBtn').click(function () {
+            let assId = $('#assId').val();
+            let data = {
+                assId: assId
+            }
+            swal("삭제하시겠습니까?",{
+                buttons: {
+                    cancel: "아니오",
+                    add: "네"
+                }
+            }).then((v) => {
+                if (v === "add"){
+                    $.ajax({
+                        type:'post',
+                        url: '/board/rest/delete/' + assId,
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        success: function (data) {
+                            swal({
+                                title: "삭제 완료!",
+                                text: data,
+                                icon: "success",
+                                button: "확인"
+                            }).then((v) => {
+                                location.href = "/board/list";
+                            });
+                        },
+                        error: function (error) {
+                            console.log(error);
+                            alert("삭제 실패");
+                        }
+                    })
+                }
+            })
+
+        });
+    });
+</script>
+</html>

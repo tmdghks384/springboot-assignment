@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent( ~{this::content} )}">
+<style>
+        a:hover{
+            cursor: pointer;
+        }
+</style>
+
+    <th:block th:fragment="content">
+        <h1 class="mt-4 text-center">Board List Page
+        </h1>
+        <a th:href="@{/board/write}" style="float: right" class="mr-2 mb-2">
+            <button type="button" class="btn btn-outline-primary">REGISTER</button>
+        </a>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th scope="col">BNo.</th>
+                <th scope="col">Title</th>
+                <th scope="col">RegDate</th>
+                <th scope="col">ModDate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto : ${board}">
+                <td></td>
+                <td>
+                    <a class="readBtn" th:text="${dto.assId}"> </a>
+                </td>
+                <td th:text="${dto.assTitle}"></td>
+                <td th:text="${#dates.format(dto.regDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${dto.modDate == null ? '-' : #dates.format(dto.modDate, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
+<!--<div class="pagination-wrapper">-->
+<!--    <div class="pagination-custom">-->
+<!--        <th:block th:if="${pageMaker.prev}">-->
+<!--            <a th:href="@{'/board/list?pageNum=' + ${pageMaker.startPage - 1}}" class="prev page-numbers">이전</a>-->
+<!--        </th:block>-->
+<!--        <th:block th:if="${!pageMaker.prev}">-->
+<!--            <span aria-current="page" class="prev page-numbers">이전</span>-->
+<!--        </th:block>-->
+
+<!--        <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">-->
+<!--            <a th:href="@{'/board/list?pageNum=' + ${num}}" th:text="${num}"-->
+<!--               th:class="|page-numbers ${pageMaker.cri.pageNum == num ? 'current' : ''}|"></a>-->
+<!--        </th:block>-->
+
+<!--        <th:block th:if="${pageMaker.next}">-->
+<!--            <li class="page-item next">-->
+<!--                <a th:href="@{'/board/list?pageNum=' + ${pageMaker.endPage + 1}}" class="next page-numbers">다음</a>-->
+<!--            </li>-->
+<!--        </th:block>-->
+<!--        <th:block th:if="${!pageMaker.next}">-->
+<!--            <span aria-current="page" class="next page-numbers">다음</span>-->
+<!--        </th:block>-->
+<!--    </div>-->
+<!--</div>-->
+</th:block>
+<script>
+    $(function () {
+        $('.readBtn').click(function () {
+            let assId = $(this).text();
+            location.href = '/board/read/' + assId;
+        });
+    });
+</script>
+</html>
