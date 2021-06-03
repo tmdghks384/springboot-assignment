@@ -36,31 +36,8 @@
             </tr>
             </tbody>
         </table>
+
     </th:block>
-<!--<div class="pagination-wrapper">-->
-<!--    <div class="pagination-custom">-->
-<!--        <th:block th:if="${pageMaker.prev}">-->
-<!--            <a th:href="@{'/board/list?pageNum=' + ${pageMaker.startPage - 1}}" class="prev page-numbers">이전</a>-->
-<!--        </th:block>-->
-<!--        <th:block th:if="${!pageMaker.prev}">-->
-<!--            <span aria-current="page" class="prev page-numbers">이전</span>-->
-<!--        </th:block>-->
-
-<!--        <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">-->
-<!--            <a th:href="@{'/board/list?pageNum=' + ${num}}" th:text="${num}"-->
-<!--               th:class="|page-numbers ${pageMaker.cri.pageNum == num ? 'current' : ''}|"></a>-->
-<!--        </th:block>-->
-
-<!--        <th:block th:if="${pageMaker.next}">-->
-<!--            <li class="page-item next">-->
-<!--                <a th:href="@{'/board/list?pageNum=' + ${pageMaker.endPage + 1}}" class="next page-numbers">다음</a>-->
-<!--            </li>-->
-<!--        </th:block>-->
-<!--        <th:block th:if="${!pageMaker.next}">-->
-<!--            <span aria-current="page" class="next page-numbers">다음</span>-->
-<!--        </th:block>-->
-<!--    </div>-->
-<!--</div>-->
 </th:block>
 <script>
     $(function () {

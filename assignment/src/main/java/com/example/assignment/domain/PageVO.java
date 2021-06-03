@@ -13,9 +13,9 @@ public class PageVO {
     private boolean prev, next;
 
     private int total;
-    private Criteria cri;
+    private com.example.assignment.domain.Criteria cri;
 
-    public PageVO(Criteria cri, int total) {
+    public PageVO(com.example.assignment.domain.Criteria cri, int total) {
         this.cri = cri;
         this.total = total;
         log.info(total);
@@ -33,4 +33,3 @@ public class PageVO {
         this.next = this.endPage < realEnd;
     }
 }
-
