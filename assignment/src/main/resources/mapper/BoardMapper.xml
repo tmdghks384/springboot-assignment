@@ -4,33 +4,12 @@
         "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.assignment.mapper.BoardMapper">
     <!--ORACLE-->
-    <insert id="insertBoard">
-        INSERT INTO assignment(assId, assTitle, assCont) values(seq_ass.NEXTVAL, #{assTitle}, #{assCont})
-    </insert>
-
-    <update id="updateBoard">
-        UPDATE assignment SET assTitle = #{assTitle}, assCont = #{assCont}, modDate = SYSTIMESTAMP WHERE assId = #{assId}
-    </update>
-
-    <delete id="deleteBoard">
-        DELETE FROM assignment WHERE assId = #{assId}
-    </delete>
-
-    <select id="boardList" resultType="BoardVO">
-        SELECT * FROM assignment ORDER BY assId DESC
-    </select>
-
-    <select id="readBoard" resultType="BoardVO">
-        SELECT * FROM assignment WHERE assId = #{assId}
-    </select>
-
-    <!--postgreSQL-->
 <!--    <insert id="insertBoard">-->
-<!--        INSERT INTO assignment(assId, assTitle, assCont) values(NEXTVAL(seq_ass), #{assTitle}, #{assCont})-->
+<!--        INSERT INTO assignment(assId, assTitle, assCont) values(seq_ass.NEXTVAL, #{assTitle}, #{assCont})-->
 <!--    </insert>-->
 
 <!--    <update id="updateBoard">-->
-<!--        UPDATE assignment SET assTitle = #{assTitle}, assCont = #{assCont}, modDate = CURRENT_TIMESTAMP WHERE assId = #{assId}-->
+<!--        UPDATE assignment SET assTitle = #{assTitle}, assCont = #{assCont}, modDate = SYSTIMESTAMP WHERE assId = #{assId}-->
 <!--    </update>-->
 
 <!--    <delete id="deleteBoard">-->
@@ -44,4 +23,25 @@
 <!--    <select id="readBoard" resultType="BoardVO">-->
 <!--        SELECT * FROM assignment WHERE assId = #{assId}-->
 <!--    </select>-->
+
+    <!--postgreSQL-->
+    <insert id="insertBoard">
+        INSERT INTO assignment(assId, assTitle, assCont) values(NEXTVAL('seq_ass'), #{assTitle}, #{assCont})
+    </insert>
+
+    <update id="updateBoard">
+        UPDATE assignment SET assTitle = #{assTitle}, assCont = #{assCont}, modDate = CURRENT_TIMESTAMP WHERE assId = #{assId}
+    </update>
+
+    <delete id="deleteBoard">
+        DELETE FROM assignment WHERE assId = #{assId}
+    </delete>
+
+    <select id="boardList" resultType="BoardVO">
+        SELECT * FROM assignment ORDER BY assId DESC
+    </select>
+
+    <select id="readBoard" resultType="BoardVO">
+        SELECT * FROM assignment WHERE assId = #{assId}
+    </select>
 </mapper>
